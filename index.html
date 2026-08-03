@@ -251,11 +251,13 @@ const state = {
 
 /* ---------------------------------------------------------------
    BACKEND: Google Sheets via Apps Script Web App
-   วาง URL ของ Apps Script Web App ที่ deploy แล้วในหน้าตั้งค่าของแอป
+   ลิงก์เริ่มต้นถูกฝังไว้ในนี้แล้ว — ทุกเครื่องที่เปิดเว็บนี้จะเชื่อมต่อ
+   สเปรดชีตเดียวกันทันทีโดยไม่ต้องตั้งค่าใหม่ ยังแก้ไขได้ทีหลังผ่านหน้าตั้งค่า
    (เก็บไว้ใน localStorage ของเบราว์เซอร์ ไม่ hardcode ในไฟล์)
 ---------------------------------------------------------------- */
 const SCRIPT_URL_KEY = 'homecafe_apps_script_url';
-function getScriptUrl(){ return (localStorage.getItem(SCRIPT_URL_KEY) || '').trim(); }
+const DEFAULT_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzGvuE2R_8JDBjn4JsjVkqd0ipzT-o8-6xgKZju7Xw9R_WMghAzYqYEjpUq1troi7fRsg/exec';
+function getScriptUrl(){ return (localStorage.getItem(SCRIPT_URL_KEY) || DEFAULT_SCRIPT_URL || '').trim(); }
 function setScriptUrl(url){ localStorage.setItem(SCRIPT_URL_KEY, (url||'').trim()); }
 
 async function apiGetAll(){
