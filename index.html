@@ -305,7 +305,11 @@ async function loadAll(){
 function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
 function todayISO(){ return new Date().toISOString().slice(0,10); }
 function fmtDate(iso){
-  const d = new Date(iso + 'T00:00:00');
+  if(!iso) return '—';
+  // If it's already a full timestamp (e.g. from Google Sheets), parse it directly.
+  // Otherwise treat it as a plain "YYYY-MM-DD" string and pin it to local midnight.
+  const d = typeof iso === 'string' && iso.includes('T') ? new Date(iso) : new Date(iso + 'T00:00:00');
+  if(isNaN(d.getTime())) return '—';
   return d.toLocaleDateString('th-TH', { day:'numeric', month:'short', year:'2-digit' });
 }
 function money(n){
