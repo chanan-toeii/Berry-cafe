@@ -99,7 +99,7 @@
   .chart-legend span{ display:flex; align-items:center; gap:6px; color:var(--espresso-soft); }
   .swatch{ width:14px; height:3px; border-radius:2px; display:inline-block; }
   .empty-chart{ text-align:center; padding:40px 10px; color:var(--espresso-soft); }
-  .empty-chart svg{ width:46px;height:46px; opacity:.35; margin-bottom:10px; }
+  .empty-chart svg{ width:20px;height:20px; opacity:.35; margin-bottom:8px; vertical-align:middle; }
   .empty-chart .cta{ margin-top:14px; }
 
   /* ---------- Forms ---------- */
@@ -123,9 +123,9 @@
   .btn-copper:hover{ opacity:.9; }
   .btn-ghost{ background:transparent; color:var(--espresso-soft); border:1px solid var(--line); }
   .btn-ghost:hover{ background:var(--crema-soft); }
-  .btn-danger-ghost{ background:transparent; border:1px solid var(--line); color:var(--rust); padding:7px 9px; }
+  .btn-danger-ghost{ background:transparent; border:1px solid var(--line); color:var(--rust); padding:7px 9px; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; }
   .btn-danger-ghost:hover{ background:#F7E9E4; }
-  .btn svg{ width:15px; height:15px; }
+  .btn svg, .btn-danger-ghost svg{ width:15px; height:15px; display:block; flex:none; }
   .btn-block{ width:100%; justify-content:center; }
   .btn-big{ padding:16px 20px; font-size:16px; border-radius:12px; }
 
@@ -882,6 +882,7 @@ function attachEvents(){
 
   document.querySelectorAll('[data-action="del-equipment"]').forEach(b=>{
     b.addEventListener('click', async ()=>{
+      if(!confirm('ลบรายการอุปกรณ์นี้หรือไม่? การกระทำนี้ย้อนกลับไม่ได้')) return;
       const id = b.getAttribute('data-id');
       state.equipment = state.equipment.filter(i=>i.id!==id);
       render();
@@ -890,6 +891,7 @@ function attachEvents(){
   });
   document.querySelectorAll('[data-action="del-bean"]').forEach(b=>{
     b.addEventListener('click', async ()=>{
+      if(!confirm('ลบรายการเมล็ดกาแฟนี้หรือไม่? การกระทำนี้ย้อนกลับไม่ได้')) return;
       const id = b.getAttribute('data-id');
       state.beans = state.beans.filter(i=>i.id!==id);
       render();
@@ -898,6 +900,7 @@ function attachEvents(){
   });
   document.querySelectorAll('[data-action="del-cup"]').forEach(b=>{
     b.addEventListener('click', async ()=>{
+      if(!confirm('ลบบันทึกแก้วนี้หรือไม่? การกระทำนี้ย้อนกลับไม่ได้')) return;
       const id = b.getAttribute('data-id');
       state.cups = state.cups.filter(i=>i.id!==id);
       render();
